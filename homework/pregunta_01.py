@@ -19,6 +19,8 @@ def pregunta_01():
     El gráfico debe salvarse al archivo `files/plots/news.png`.
 
     """
+
+#  configuración de la figura
     plt.figure()
     colors = {
         'Television' : 'dimgray',
@@ -41,63 +43,65 @@ def pregunta_01():
         'Radio' : 2,
     }
 
-
+# cargar los datos
     df = pd.read_csv('files/input/news.csv',index_col=0)  
 
-    for col in df.columns:
+    for colum in df.columns:
         plt.plot(
-            df[col],
-            color = colors[col],
-            label=col,
-            zorder=zorder[col],
-            linewidth=linewidth[col]
+            df[colum],
+            color = colors[colum],
+            label=colum,
+            zorder=zorder[colum],
+            linewidth=linewidth[colum]
                 )
 
-
+# configuración de la figura
     plt.title('How people get their news', fontsize=16)
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
     plt.gca().spines['left'].set_visible(False)
     plt.gca().axes.get_yaxis().set_visible(False)
 
-    for col in df.columns:
+    for colum in df.columns:
             first_year = df.index[0]
             plt.scatter(
                 x=first_year, 
-                y=df[col][first_year], 
-                color=colors[col], 
-                zorder=zorder[col], 
+                y=df[colum][first_year], 
+                color=colors[colum], 
+                zorder=zorder[colum], 
                         )
             
             plt.text(
                 first_year -0.2, 
-                df[col][first_year], 
-                col+' '+str(df[col][first_year]) + '%', 
-                ha='right', 
-                va='center', 
-                color = colors[col]
+                df[colum][first_year], 
+                colum +' '+str(df[colum][first_year]) + '%', 
+                ha ='right', 
+                va ='center', 
+                color = colors[colum]
                     )
             last_year = df.index[-1]
             plt.scatter(
                 x=last_year, 
-                y=df[col][last_year], 
-                color=colors[col], 
-                zorder=zorder[col], 
+                y=df[colum][last_year], 
+                color=colors[colum], 
+                zorder=zorder[colum], 
                         )
             
             plt.text(
                 last_year +0.2, 
-                df[col][last_year], 
-                col+' '+str(df[col][last_year]) + '%', 
-                ha='left', 
-                va='center', 
-                color = colors[col]
+                df[colum][last_year], 
+                colum + ' ' + str(df[colum][last_year]) + '%', 
+                ha = 'left', 
+                va = 'center', 
+                color = colors[colum]
                     )
             
 
-    # Crear el directorio 'files/plots' si no existe
+# crear el gráfico
     os.makedirs('files/plots', exist_ok=True)
+    
     plt.tight_layout()
+
     plt.savefig('files/plots/news.png')
 
 pregunta_01()
